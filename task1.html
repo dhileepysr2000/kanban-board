@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .rowtable{
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+                <input type="text" id="txt" value="" name="txt" >
+            
+                <input type="button" id="data" value="add" onclick="add()">
+                <div class="rowtable">
+                <div>
+                   <table border="1">
+                    <thead>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                        <th>Move on</th>
+                    </thead>
+                    <tbody id="items"></tbody>
+                   </table>
+               </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <div>
+                  <table border="1">
+                    <thead>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Move on</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody id="items1"></tbody>
+                  </table>
+            
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <div>
+                <table border="1">
+                  <thead>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Action</th>
+                      
+                  </thead>
+                  <tbody id="items2"></tbody>
+                </table>
+          
+          </div>
+           </div>
+     </div>
+    </form>
+
+    
+
+    </div>
+
+    <script>
+        var items=[];
+        var items1=[];
+        var items2=[];
+
+        function add()
+        {
+            var txt=document.getElementById("txt").value;
+
+             items.push(txt);
+           document.getElementById("txt").value="";
+           disp();
+
+        }
+
+        function disp(){
+            var s="";
+            var i=0;
+            items.forEach(function(value,index){
+                i=i+1;
+                s+='<tr>';
+                s+='<td>'+i+'</td>';
+                s+='<td>'+value+'</td>';
+                s+='<td><input type="button" value="delete" onclick="del('+index+')"/></td>';
+                s+='<td><input type="button" value="move on" onclick="mov('+index+')"/></td>';
+                s+='</tr>'
+            })
+            document.getElementById('items').innerHTML=s;
+        }
+
+
+
+        function mov(id){
+           
+            items1.push(items[id]);
+           disp1();
+            del();
+      }
+
+      function del(id){
+            
+           
+           items.splice(id,1);
+                       disp();
+        
+        }
+
+
+        function disp1(){
+            var a="";
+            var i=0;
+            items1.forEach(function(value,index){
+                i=i+1;
+                a+='<tr>';
+                a+='<td>'+i+'</td>';
+                a+='<td>'+value+'</td>';
+               
+                a+='<td><input type="button" value="move on" onclick="mov2('+index+')"/></td>';
+                a+='<td><input type="button" value="delete" onclick="del2('+index+')"/></td>';
+                
+                a+='</tr>'
+            })
+            document.getElementById('items1').innerHTML=a;
+        }
+
+
+        function mov2(id){
+           
+           items2.push(items1[id]);
+          disp2();
+           del2();
+     }
+
+     function del2(id)
+     {         
+          items1.splice(id,1);
+          disp1();
+       }
+
+
+    function disp2()
+    {
+                var a="";
+                var i=0;
+                items2.forEach(function(value,index)
+                {
+                    i+=1;
+       
+       
+                    a+="<tr><td>"+i+"</td>"+"<td>"+value+"</td>"+'<td><input type="button" value="Delete" onclick="del3('+index+')"/></td>';
+       
+                    })
+                document.getElementById("items2").innerHTML=a;
+            }
+
+           
+     function del3(id)
+     {         
+          items2.splice(id,1);
+          disp2();
+       }
+
+
+</script>
+</body>
+</html>
